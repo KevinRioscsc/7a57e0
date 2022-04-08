@@ -8,6 +8,9 @@ import {
   FormControl,
   TextField,
 } from '@material-ui/core';
+import './signup.css'
+import photo from './components/assets/bg-img.png'
+import vector from './components/assets/bubble.svg'
 
 const Login = ({ user, login }) => {
   const history = useHistory();
@@ -27,43 +30,60 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Link href="/register" to="/register">
-            <Button>Register</Button>
-          </Link>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
+    <div className="flex">
+      <div className="leftPhoto">
+        <img src={photo} className = 'responsive' alt="leftPhoto" />
+        <div className="overlay"></div>
+        <div className="text">
+            <img src={vector}  alt="bubble" />
+            <h1>Converse with anyone with any language</h1>
+        </div>
+      </div>
+      <div className="rightSide">
+          <Grid container className='switch' item>
+            <Typography className='need'>Dont have an account?</Typography>
+            <Link href="/register" to="/register">
+              <Button style={{padding: '10px 40px',  color: '#3A8DFF'}} className='btn'>Create Account</Button>
+            </Link>
+          </Grid>
+      <Grid container className='height' alignItems='center' justifyContent="center">
+        <Box className='width'>
+          <h1 className='title'>Welcome back!</h1>
+          <form onSubmit={handleLogin}>
             <Grid>
-              <FormControl margin="normal" required>
+              <Grid>
+                <FormControl margin="normal" className='inputWidth' required>
+                  <TextField
+                    aria-label="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                  />
+                </FormControl>
+              </Grid>
+              <FormControl margin="normal" className='inputWidth mt' required>
                 <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
+                  label="Password"
+                  aria-label="password"
+                  type="password"
+                  name="password"
                 />
               </FormControl>
+              <Grid className='mt center'>
+                <Button style={{padding: '18px 58px',  
+                backgroundColor: '#3A8DFF', 
+                color:'#FFF'}} 
+                
+                type="submit" variant="contained" size="large">
+                  Login
+                </Button>
+              </Grid>
             </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
-    </Grid>
+          </form>
+        </Box>
+      </Grid>
+      </div>
+    </div>
   );
 };
 
