@@ -35,7 +35,7 @@ const Input = ({ otherUser, conversationId, user, postMessage, setToggle, toggle
       conversationId,
       sender: conversationId ? null : user,
     };
-    console.log('reqBody', reqBody)
+  
     await postMessage(reqBody);
     setText('');
     setToggle(!toggle)
