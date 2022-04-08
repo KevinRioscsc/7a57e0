@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import { Input, Header, Messages } from './index';
@@ -27,37 +27,51 @@ const ActiveChat = ({
 }) => {
   const classes = useStyles();
 
+  //placed a useState to force a rerender everytime a message gets inputted
+  //not the best way but i couldnt figure it out completely
+  const [toggle, setToggle] = useState(false)
+
   const conversation = conversations
     ? conversations.find(
         (conversation) => conversation.otherUser.username === activeConversation
       )
     : {};
 
+   
+
+  
+
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
   };
+  useEffect(() => {}, [toggle])
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root}>  
       {isConversation(conversation) && conversation.otherUser && (
         <>
           <Header
             username={conversation.otherUser.username}
             online={conversation.otherUser.online || false}
           />
+         
           <Box className={classes.chatContainer}>
             {user && (
+              
               <>
                 <Messages
                   messages={conversation.messages}
                   otherUser={conversation.otherUser}
                   userId={user.id}
+                  toggle = {toggle}
                 />
                 <Input
                   otherUser={conversation.otherUser}
                   conversationId={conversation.id || null}
                   user={user}
                   postMessage={postMessage}
+                  toggle = {toggle}
+                  setToggle ={setToggle}
                 />
               </>
             )}
