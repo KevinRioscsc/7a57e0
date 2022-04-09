@@ -9,6 +9,8 @@ import {
   TextField,
   FormHelperText,
 } from '@material-ui/core';
+import photo from './components/assets/bg-img.png'
+import vector from './components/assets/bubble.svg'
 
 const Signup = ({ user, register }) => {
   const history = useHistory();
@@ -36,75 +38,94 @@ const Signup = ({ user, register }) => {
   }, [user, history]);
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to log in?</Typography>
+    <div className="flex">
+      <div className="leftPhoto">
+        <img src={photo} className = 'responsive' alt="leftPhoto" />
+        <div className="overlay"></div>
+        <div className="text">
+            <img src={vector} height={80} alt="bubble" />
+            <h1 className='leftTitle'>Converse with anyone with any language</h1>
+        </div>
+      </div>
+      <div className="rightSide loose">
+      <Grid container className='switch' item>
+        <Typography className='need'>Already have an account?</Typography>
           <Link href="/login" to="/login">
-            <Button>Login</Button>
+            <Button style={{padding: '10px 40px',  color: '#3A8DFF'}} className='btn'>Login</Button>
           </Link>
         </Grid>
-        <form onSubmit={handleRegister}>
-          <Grid>
+        <Grid container className='height' alignItems='center' justifyContent="center">
+        <Box className='width'>
+          <h1 className='title'>Create an account</h1>
+          <form onSubmit={handleRegister}>
             <Grid>
-              <FormControl>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                  required
-                />
-              </FormControl>
+              <Grid>
+                <FormControl  className='inputWidth'>
+                  <TextField
+                    aria-label="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid>
+                <FormControl  style={{marginTop: '30px'}} className='inputWidth'>
+                  <TextField
+                    label="E-mail address"
+                    aria-label="e-mail address"
+                    type="email"
+                    name="email"
+                    required
+                  />
+                </FormControl>
+              </Grid>
+              <Grid>
+                <FormControl style={{marginTop: '30px'}} className='inputWidth' error={!!formErrorMessage.confirmPassword}>
+                  <TextField
+                    aria-label="password"
+                    label="Password"
+                    type="password"
+                    inputProps={{ minLength: 6 }}
+                    name="password"
+                    required
+                  />
+                  <FormHelperText>
+                    {formErrorMessage.confirmPassword}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid>
+                <FormControl style={{marginTop: '30px'}} className='inputWidth' error={!!formErrorMessage.confirmPassword}>
+                  <TextField
+                    label="Confirm Password"
+                    aria-label="confirm password"
+                    type="password"
+                    inputProps={{ minLength: 6 }}
+                    name="confirmPassword"
+                    required
+                  />
+                  <FormHelperText>
+                    {formErrorMessage.confirmPassword}
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid className='mt center'>
+                <Button style={{padding: '18px 58px',  
+                backgroundColor: '#3A8DFF', 
+                color:'#FFF'}} 
+                
+                type="submit" variant="contained" size="large">
+                  Login
+                </Button>
+              </Grid>
             </Grid>
-            <Grid>
-              <FormControl>
-                <TextField
-                  label="E-mail address"
-                  aria-label="e-mail address"
-                  type="email"
-                  name="email"
-                  required
-                />
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
-                <TextField
-                  aria-label="password"
-                  label="Password"
-                  type="password"
-                  inputProps={{ minLength: 6 }}
-                  name="password"
-                  required
-                />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Grid>
-              <FormControl error={!!formErrorMessage.confirmPassword}>
-                <TextField
-                  label="Confirm Password"
-                  aria-label="confirm password"
-                  type="password"
-                  inputProps={{ minLength: 6 }}
-                  name="confirmPassword"
-                  required
-                />
-                <FormHelperText>
-                  {formErrorMessage.confirmPassword}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
-            <Button type="submit" variant="contained" size="large">
-              Create
-            </Button>
-          </Grid>
-        </form>
+          </form>
       </Box>
     </Grid>
+    </div>
+    </div>
   );
 };
 

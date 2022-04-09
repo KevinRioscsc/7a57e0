@@ -35,8 +35,8 @@ const Login = ({ user, login }) => {
         <img src={photo} className = 'responsive' alt="leftPhoto" />
         <div className="overlay"></div>
         <div className="text">
-            <img src={vector}  alt="bubble" />
-            <h1>Converse with anyone with any language</h1>
+            <img src={vector} height={80} alt="bubble" />
+            <h1 className='leftTitle'>Converse with anyone with any language</h1>
         </div>
       </div>
       <div className="rightSide">
@@ -61,14 +61,17 @@ const Login = ({ user, login }) => {
                   />
                 </FormControl>
               </Grid>
-              <FormControl margin="normal" className='inputWidth mt' required>
+              <FormControl margin="normal" style={{marginTop: '30px'}} className='inputWidth ' required>
                 <TextField
+                style={{position: 'relative'}}
                   label="Password"
                   aria-label="password"
                   type="password"
                   name="password"
                 />
+                 <span className='forgot'>Forgot?</span>
               </FormControl>
+             
               <Grid className='mt center'>
                 <Button style={{padding: '18px 58px',  
                 backgroundColor: '#3A8DFF', 
@@ -79,6 +82,7 @@ const Login = ({ user, login }) => {
                 </Button>
               </Grid>
             </Grid>
+           
           </form>
         </Box>
       </Grid>
