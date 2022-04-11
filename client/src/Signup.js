@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   Grid,
-  Box,
-  Typography,
-  Button,
   FormControl,
   TextField,
   FormHelperText,
 } from '@material-ui/core';
-import photo from './components/assets/bg-img.png'
-import vector from './components/assets/bubble.svg'
+import FormButton from './Form/FormButton.js';
+import Form from './Form/Form.js';
 
 const Signup = ({ user, register }) => {
   const history = useHistory();
@@ -38,29 +35,14 @@ const Signup = ({ user, register }) => {
   }, [user, history]);
 
   return (
-    <div className="flex">
-      <div className="leftPhoto">
-        <img src={photo} className = 'responsive' alt="leftPhoto" />
-        <div className="overlay"></div>
-        <div className="text">
-            <img src={vector} height={80} alt="bubble" />
-            <h1 className='leftTitle'>Converse with anyone with any language</h1>
-        </div>
-      </div>
-      <div className="rightSide loose">
-      <Grid container className='switch' item>
-        <Typography className='need'>Already have an account?</Typography>
-          <Link href="/login" to="/login">
-            <Button style={{padding: '10px 40px',  color: '#3A8DFF'}} className='btn'>Login</Button>
-          </Link>
-        </Grid>
-        <Grid container className='height' alignItems='center' justifyContent="center">
-        <Box className='width'>
-          <h1 className='title'>Create an account</h1>
+        <Form account={'Already have an account'} 
+        btnTitle={'Login'} 
+        link={'/login'} 
+        header={'Create an account'} >    
           <form onSubmit={handleRegister}>
             <Grid>
               <Grid>
-                <FormControl  className='inputWidth'>
+                <FormControl style={{marginTop: '30px', width:'100%'}} >
                   <TextField
                     aria-label="username"
                     label="Username"
@@ -71,7 +53,7 @@ const Signup = ({ user, register }) => {
                 </FormControl>
               </Grid>
               <Grid>
-                <FormControl  style={{marginTop: '30px'}} className='inputWidth'>
+                <FormControl  style={{marginTop: '30px', width:'100%'}} >
                   <TextField
                     label="E-mail address"
                     aria-label="e-mail address"
@@ -82,7 +64,7 @@ const Signup = ({ user, register }) => {
                 </FormControl>
               </Grid>
               <Grid>
-                <FormControl style={{marginTop: '30px'}} className='inputWidth' error={!!formErrorMessage.confirmPassword}>
+                <FormControl style={{marginTop: '30px', width:'100%'}} error={!!formErrorMessage.confirmPassword}>
                   <TextField
                     aria-label="password"
                     label="Password"
@@ -97,7 +79,7 @@ const Signup = ({ user, register }) => {
                 </FormControl>
               </Grid>
               <Grid>
-                <FormControl style={{marginTop: '30px'}} className='inputWidth' error={!!formErrorMessage.confirmPassword}>
+                <FormControl style={{marginTop: '30px', width:'100%'}} error={!!formErrorMessage.confirmPassword}>
                   <TextField
                     label="Confirm Password"
                     aria-label="confirm password"
@@ -111,21 +93,11 @@ const Signup = ({ user, register }) => {
                   </FormHelperText>
                 </FormControl>
               </Grid>
-              <Grid className='mt center'>
-                <Button style={{padding: '18px 58px',  
-                backgroundColor: '#3A8DFF', 
-                color:'#FFF'}} 
-                
-                type="submit" variant="contained" size="large">
-                  Login
-                </Button>
-              </Grid>
+             <FormButton title={'Create'}/>
             </Grid>
           </form>
-      </Box>
-    </Grid>
-    </div>
-    </div>
+        </Form>
+     
   );
 };
 
