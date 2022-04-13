@@ -29,7 +29,7 @@ const Login = ({ user, login }) => {
   return (
     
           
-      <Grid container  alignItems='center' justifyContent="center">
+      <Grid container justifyContent="center">
         <Box >
           <Grid container  item>
               <Typography >Dont have an account?</Typography>
@@ -49,6 +49,7 @@ const Login = ({ user, login }) => {
                   />
                 </FormControl>
               </Grid>
+              <Grid>
               <FormControl margin="normal" required>
                 <TextField
                   label="Password"
@@ -57,6 +58,7 @@ const Login = ({ user, login }) => {
                   name="password"
                 />
               </FormControl>
+              </Grid>
               <Button type="submit" variant="contained" size="large">
               Create
             </Button>
