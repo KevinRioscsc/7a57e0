@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import {  useHistory } from 'react-router-dom';
 import {
   Grid,
-  FormControl,
   TextField,
   Box
 } from '@material-ui/core';
 import FormButton from './Form/FormButton.js';
+import FormControlDiv from './Form/FormControlDiv.js';
 import Form from './Form/Form.js'
 
 const Login = ({ user, login }) => {
@@ -34,16 +34,16 @@ const Login = ({ user, login }) => {
           <form onSubmit={handleLogin}>
             <Grid>
               <Grid>
-                <FormControl margin="normal" style={{marginTop: '30px', width:'100%'}} required>
+                <FormControlDiv required>
                   <TextField
                     aria-label="username"
                     label="Username"
                     name="username"
                     type="text"
                   />
-                </FormControl>
+                </FormControlDiv>
               </Grid>
-              <FormControl margin="normal" style={{marginTop: '30px', width:'100%'}}  required>
+              <FormControlDiv required>
                 <TextField
                 style={{position: 'relative'}}
                   label="Password"
@@ -60,7 +60,7 @@ const Login = ({ user, login }) => {
                   fontSize: '14px',}}>
                     Forgot?
                     </Box>
-              </FormControl>
+              </FormControlDiv>
              
              <FormButton title={'Login'} />
             </Grid>

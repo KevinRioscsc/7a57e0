@@ -22,7 +22,13 @@ const useStyles = makeStyles(() => ({
         background: '#FFFFFF',
         boxShadow: '0px 2px 12px rgba(74, 106, 149, 0.2)',
         borderRadius: 5
+      },
+      btn:{
+        padding: '16px 40px',  
+        color: '#3A8DFF', 
+        fontSize: '14px'
       }
+
   }));
 
 const TopButton = ({account, btnTitle, link}) => {
@@ -32,7 +38,7 @@ const TopButton = ({account, btnTitle, link}) => {
     <Grid container className={classes.Switch} item>
         <Typography className={classes.Account}>{account}</Typography>
         <Link className={classes.shadow} href={link} to={link}>
-            <Button style={{padding: '16px 40px',  color: '#3A8DFF', fontSize: '14px'}}>{btnTitle}</Button>
+            <Button className={classes.btn}>{btnTitle}</Button>
         </Link>
     </Grid>
   )

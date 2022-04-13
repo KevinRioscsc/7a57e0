@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Grid,
-  FormControl,
   TextField,
   FormHelperText,
 } from '@material-ui/core';
 import FormButton from './Form/FormButton.js';
 import Form from './Form/Form.js';
+import FormControlDiv from './Form/FormControlDiv.js';
 
 const Signup = ({ user, register }) => {
   const history = useHistory();
@@ -42,7 +42,7 @@ const Signup = ({ user, register }) => {
           <form onSubmit={handleRegister}>
             <Grid>
               <Grid>
-                <FormControl style={{marginTop: '30px', width:'100%'}} >
+                <FormControlDiv  >
                   <TextField
                     aria-label="username"
                     label="Username"
@@ -50,10 +50,10 @@ const Signup = ({ user, register }) => {
                     type="text"
                     required
                   />
-                </FormControl>
+                </FormControlDiv>
               </Grid>
               <Grid>
-                <FormControl  style={{marginTop: '30px', width:'100%'}} >
+                <FormControlDiv>
                   <TextField
                     label="E-mail address"
                     aria-label="e-mail address"
@@ -61,10 +61,10 @@ const Signup = ({ user, register }) => {
                     name="email"
                     required
                   />
-                </FormControl>
+                </FormControlDiv>
               </Grid>
               <Grid>
-                <FormControl style={{marginTop: '30px', width:'100%'}} error={!!formErrorMessage.confirmPassword}>
+                <FormControlDiv error={!!formErrorMessage.confirmPassword}>
                   <TextField
                     aria-label="password"
                     label="Password"
@@ -76,10 +76,10 @@ const Signup = ({ user, register }) => {
                   <FormHelperText>
                     {formErrorMessage.confirmPassword}
                   </FormHelperText>
-                </FormControl>
+                </FormControlDiv>
               </Grid>
               <Grid>
-                <FormControl style={{marginTop: '30px', width:'100%'}} error={!!formErrorMessage.confirmPassword}>
+                <FormControlDiv error={!!formErrorMessage.confirmPassword}>
                   <TextField
                     label="Confirm Password"
                     aria-label="confirm password"
@@ -91,7 +91,7 @@ const Signup = ({ user, register }) => {
                   <FormHelperText>
                     {formErrorMessage.confirmPassword}
                   </FormHelperText>
-                </FormControl>
+                </FormControlDiv>
               </Grid>
              <FormButton title={'Create'}/>
             </Grid>

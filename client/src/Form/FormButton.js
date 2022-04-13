@@ -8,6 +8,11 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center'
   },
+  btn:{
+    padding: '18px 58px',  
+    backgroundColor: '#3A8DFF', 
+    color:'#FFF'
+  }
 }))
 
 const FormButton = ({title}) => {
@@ -15,9 +20,7 @@ const FormButton = ({title}) => {
   return (
     <div>
          <Grid className={classes.center}>
-            <Button style={{padding: '18px 58px',  
-            backgroundColor: '#3A8DFF', 
-            color:'#FFF'}}  
+            <Button className={classes.btn}  
             type="submit" variant="contained" size="large">
                {title}
             </Button>
