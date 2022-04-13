@@ -116,7 +116,6 @@ const Home = ({ user, logout }) => {
         }
         return convo;
       }));
-      console.log(conversations)
     },
     [setConversations, conversations],
   );
@@ -195,10 +194,10 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
-        data.forEach(item => {
+        setConversations(data.map(item => {
           item.messages = reverseArr(item.messages)
-        })
-        setConversations(data)
+          return item
+        }))
       } catch (error) {
         console.error(error);
       }
