@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormControl, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -26,6 +26,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
+    
     const formElements = form.elements;
     // add sender user info if posting to a brand new convo, so that the other user will have access to username, profile pic, etc.
     const reqBody = {
@@ -34,6 +35,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
       conversationId,
       sender: conversationId ? null : user,
     };
+  
     await postMessage(reqBody);
     setText('');
   };

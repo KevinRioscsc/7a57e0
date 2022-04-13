@@ -29,6 +29,7 @@ const Home = ({ user, logout }) => {
     const currentUsers = {};
 
     // make table of current users so we can lookup faster
+    
     conversations.forEach((convo) => {
       currentUsers[convo.otherUser.id] = true;
     });
@@ -51,6 +52,8 @@ const Home = ({ user, logout }) => {
 
   const saveMessage = async (body) => {
     const { data } = await axios.post("/api/messages", body);
+
+  
     return data;
   };
 
@@ -62,11 +65,9 @@ const Home = ({ user, logout }) => {
     });
   };
 
-  //Adding async and await to retieve data
   const postMessage = async(body) => {
     try {
       const data = await saveMessage(body);
-
       if (!body.conversationId) {
         addNewConvo(body.recipientId, data.message);
       } else {
@@ -90,12 +91,13 @@ const Home = ({ user, logout }) => {
       });
       setConversations(conversations);
     },
-    [setConversations, conversations],
+    [],
   );
   const addMessageToConversation = useCallback(
     (data) => {
       // if sender isn't null, that means the message needs to be put in a brand new convo
       const { message, sender = null } = data;
+    
       if (sender !== null) {
         const newConvo = {
           id: message.conversationId,
@@ -103,6 +105,7 @@ const Home = ({ user, logout }) => {
           messages: [message],
         };
         newConvo.latestMessageText = message.text;
+       
         setConversations((prev) => [newConvo, ...prev]);
       }
 
@@ -117,7 +120,7 @@ const Home = ({ user, logout }) => {
         return convo;
       }));
     },
-    [setConversations, conversations],
+    [setConversations , conversations],
   );
 
   const setActiveChat = (username) => {
@@ -152,6 +155,7 @@ const Home = ({ user, logout }) => {
     );
   }, []);
 
+ 
   // Lifecycle
 
   useEffect(() => {
@@ -194,10 +198,13 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
+
         setConversations(data.map(item => {
           item.messages = reverseArr(item.messages)
           return item
         }))
+
+        
       } catch (error) {
         console.error(error);
       }
