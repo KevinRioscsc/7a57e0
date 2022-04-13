@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import { Input, Header, Messages } from './index';
@@ -27,9 +27,7 @@ const ActiveChat = ({
 }) => {
   const classes = useStyles();
 
-  //placed a useState to force a rerender everytime a message gets inputted
-  //not the best way but i couldnt figure it out completely
-  const [toggle, setToggle] = useState(false)
+
 
   const conversation = conversations
     ? conversations.find(
@@ -44,7 +42,7 @@ const ActiveChat = ({
   const isConversation = (obj) => {
     return obj !== {} && obj !== undefined;
   };
-  useEffect(() => {}, [toggle])
+  
 
   return (
     <Box className={classes.root}>  
@@ -63,15 +61,14 @@ const ActiveChat = ({
                   messages={conversation.messages}
                   otherUser={conversation.otherUser}
                   userId={user.id}
-                  toggle = {toggle}
+                  
                 />
                 <Input
                   otherUser={conversation.otherUser}
                   conversationId={conversation.id || null}
                   user={user}
                   postMessage={postMessage}
-                  toggle = {toggle}
-                  setToggle ={setToggle}
+                  
                 />
               </>
             )}

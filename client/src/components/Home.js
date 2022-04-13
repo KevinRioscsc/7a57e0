@@ -109,15 +109,16 @@ const Home = ({ user, logout }) => {
        
         setConversations((prev) => [newConvo, ...prev]);
       }
-     
-      conversations.forEach((convo) => {
+      //changed forEach to map because I want to manipulate data in
+      //the set method to cause a render.
+      setConversations(conversations.map((convo) => {
         if (convo.id === message.conversationId) {
           convo.messages.push(message);
           convo.latestMessageText = message.text;
-          
+         
         }
-      });
-      setConversations(conversations);
+        return convo;
+      }));
     },
     [setConversations , conversations],
   );
@@ -197,11 +198,11 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
-        //The data that we get is reversed, so im going to reverse it again
-        data.forEach(item => {
+       
+        setConversations(data.map(item => {
           item.messages = reverseArr(item.messages)
-        })
-        setConversations(data)
+          return item
+        }))
       } catch (error) {
         console.error(error);
       }

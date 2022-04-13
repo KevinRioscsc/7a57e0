@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FormControl, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Input = ({ otherUser, conversationId, user, postMessage, setToggle, toggle }) => {
+const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const classes = useStyles();
   const [text, setText] = useState('');
 
@@ -38,11 +38,9 @@ const Input = ({ otherUser, conversationId, user, postMessage, setToggle, toggle
   
     await postMessage(reqBody);
     setText('');
-    setToggle(!toggle)
+   
   };
-  useEffect(() => {
-    console.log('input')
-  })
+  
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <FormControl fullWidth hiddenLabel>
