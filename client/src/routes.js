@@ -116,10 +116,12 @@ const Routes = (props) => {
             )
           }
         />
+         <React.StrictMode>
         <Route
           path="/home"
           render={() => <Home user={user} logout={logout} />}
         />
+        </React.StrictMode>
       </Switch>
     </SocketContext.Provider>
   );

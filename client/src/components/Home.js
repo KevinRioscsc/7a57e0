@@ -62,9 +62,10 @@ const Home = ({ user, logout }) => {
     });
   };
 
-  const postMessage = (body) => {
+  //Adding async and await to retieve data
+  const postMessage = async(body) => {
     try {
-      const data = saveMessage(body);
+      const data = await saveMessage(body);
 
       if (!body.conversationId) {
         addNewConvo(body.recipientId, data.message);
@@ -105,13 +106,17 @@ const Home = ({ user, logout }) => {
         setConversations((prev) => [newConvo, ...prev]);
       }
 
-      conversations.forEach((convo) => {
+      //changed forEach to map because I want to manipulate data in
+      //the set method to cause a render.
+      setConversations(conversations.map((convo) => {
         if (convo.id === message.conversationId) {
           convo.messages.push(message);
           convo.latestMessageText = message.text;
+         
         }
-      });
-      setConversations(conversations);
+        return convo;
+      }));
+      console.log(conversations)
     },
     [setConversations, conversations],
   );
@@ -164,6 +169,14 @@ const Home = ({ user, logout }) => {
       socket.off("new-message", addMessageToConversation);
     };
   }, [addMessageToConversation, addOnlineUser, removeOfflineUser, socket]);
+  const reverseArr = (arr) => {
+    const newArr = []
+
+    for(let i = arr.length - 1; i >= 0; i--){
+      newArr.push(arr[i])
+    }
+    return newArr
+  }
 
   useEffect(() => {
     // when fetching, prevent redirect
@@ -182,7 +195,10 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
-        setConversations(data);
+        data.forEach(item => {
+          item.messages = reverseArr(item.messages)
+        })
+        setConversations(data)
       } catch (error) {
         console.error(error);
       }
@@ -210,12 +226,14 @@ const Home = ({ user, logout }) => {
           addSearchedUsers={addSearchedUsers}
           setActiveChat={setActiveChat}
         />
-        <ActiveChat
-          activeConversation={activeConversation}
-          conversations={conversations}
-          user={user}
-          postMessage={postMessage}
-        />
+        <React.StrictMode>
+          <ActiveChat
+            activeConversation={activeConversation}
+            conversations={conversations}
+            user={user}
+            postMessage={postMessage}
+          />
+        </React.StrictMode>
       </Grid>
     </>
   );
