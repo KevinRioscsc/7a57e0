@@ -29,6 +29,7 @@ const Home = ({ user, logout }) => {
     const currentUsers = {};
 
     // make table of current users so we can lookup faster
+    
     conversations.forEach((convo) => {
       currentUsers[convo.otherUser.id] = true;
     });
@@ -51,6 +52,8 @@ const Home = ({ user, logout }) => {
 
   const saveMessage = async (body) => {
     const { data } = await axios.post("/api/messages", body);
+
+  
     return data;
   };
 
@@ -62,10 +65,10 @@ const Home = ({ user, logout }) => {
     });
   };
 
-  const postMessage = (body) => {
+  //we need this function to be async
+  const postMessage = async(body) => {
     try {
-      const data = saveMessage(body);
-
+      const data = await saveMessage(body); //returned a promise
       if (!body.conversationId) {
         addNewConvo(body.recipientId, data.message);
       } else {
@@ -89,12 +92,13 @@ const Home = ({ user, logout }) => {
       });
       setConversations(conversations);
     },
-    [setConversations, conversations],
+    [],
   );
   const addMessageToConversation = useCallback(
     (data) => {
       // if sender isn't null, that means the message needs to be put in a brand new convo
       const { message, sender = null } = data;
+    
       if (sender !== null) {
         const newConvo = {
           id: message.conversationId,
@@ -102,18 +106,20 @@ const Home = ({ user, logout }) => {
           messages: [message],
         };
         newConvo.latestMessageText = message.text;
+       
         setConversations((prev) => [newConvo, ...prev]);
       }
-
+     
       conversations.forEach((convo) => {
         if (convo.id === message.conversationId) {
           convo.messages.push(message);
           convo.latestMessageText = message.text;
+          
         }
       });
       setConversations(conversations);
     },
-    [setConversations, conversations],
+    [setConversations , conversations],
   );
 
   const setActiveChat = (username) => {
@@ -147,6 +153,15 @@ const Home = ({ user, logout }) => {
       }),
     );
   }, []);
+
+  const reverseArr = (arr) => {
+    const newArr = []
+
+    for(let i = arr.length - 1; i >= 0; i--){
+      newArr.push(arr[i])
+    }
+    return newArr
+  }
 
   // Lifecycle
 
@@ -182,7 +197,11 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
-        setConversations(data);
+        //The data that we get is reversed, so im going to reverse it again
+        data.forEach(item => {
+          item.messages = reverseArr(item.messages)
+        })
+        setConversations(data)
       } catch (error) {
         console.error(error);
       }

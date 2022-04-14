@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import {
   Grid,
-  Box,
-  Typography,
-  Button,
-  FormControl,
   TextField,
+  Box
 } from '@material-ui/core';
+import FormButton from './Form/FormButton.js';
+import FormControlDiv from './Form/FormControlDiv.js';
+import Form from './Form/Form.js'
 
 const Login = ({ user, login }) => {
   const history = useHistory();
@@ -27,43 +27,47 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Link href="/register" to="/register">
-            <Button>Register</Button>
-          </Link>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
+    <Form account={"Don't have an account"} 
+    btnTitle={'Create account'} 
+    link= {'/register'} 
+    header={'Welcome back!'} >
+          <form onSubmit={handleLogin}>
             <Grid>
-              <FormControl margin="normal" required>
+              <Grid>
+                <FormControlDiv required>
+                  <TextField
+                    aria-label="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                  />
+                </FormControlDiv>
+              </Grid>
+              <FormControlDiv required>
                 <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
+                style={{position: 'relative'}}
+                  label="Password"
+                  aria-label="password"
+                  type="password"
+                  name="password"
                 />
-              </FormControl>
+                 <Box component= "span" sx= 
+               {{ position: 'absolute',
+                  right: 0,
+                  bottom: '20%',
+                  cursor: 'pointer',
+                  color: '#3A8DFF',
+                  fontSize: '14px',}}>
+                    Forgot?
+                    </Box>
+              </FormControlDiv>
+             
+             <FormButton title={'Login'} />
             </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
-    </Grid>
+           
+          </form>
+          </Form>
+        
   );
 };
 
