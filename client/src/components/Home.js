@@ -65,10 +65,9 @@ const Home = ({ user, logout }) => {
     });
   };
 
-  //we need this function to be async
   const postMessage = async(body) => {
     try {
-      const data = await saveMessage(body); //returned a promise
+      const data = await saveMessage(body);
       if (!body.conversationId) {
         addNewConvo(body.recipientId, data.message);
       } else {
@@ -155,15 +154,7 @@ const Home = ({ user, logout }) => {
     );
   }, []);
 
-  const reverseArr = (arr) => {
-    const newArr = []
-
-    for(let i = arr.length - 1; i >= 0; i--){
-      newArr.push(arr[i])
-    }
-    return newArr
-  }
-
+ 
   // Lifecycle
 
   useEffect(() => {
@@ -180,6 +171,14 @@ const Home = ({ user, logout }) => {
       socket.off("new-message", addMessageToConversation);
     };
   }, [addMessageToConversation, addOnlineUser, removeOfflineUser, socket]);
+  const reverseArr = (arr) => {
+    const newArr = []
+
+    for(let i = arr.length - 1; i >= 0; i--){
+      newArr.push(arr[i])
+    }
+    return newArr
+  }
 
   useEffect(() => {
     // when fetching, prevent redirect
@@ -198,11 +197,12 @@ const Home = ({ user, logout }) => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get("/api/conversations");
-       
         setConversations(data.map(item => {
           item.messages = reverseArr(item.messages)
           return item
         }))
+
+        
       } catch (error) {
         console.error(error);
       }
@@ -230,12 +230,14 @@ const Home = ({ user, logout }) => {
           addSearchedUsers={addSearchedUsers}
           setActiveChat={setActiveChat}
         />
-        <ActiveChat
-          activeConversation={activeConversation}
-          conversations={conversations}
-          user={user}
-          postMessage={postMessage}
-        />
+        <React.StrictMode>
+          <ActiveChat
+            activeConversation={activeConversation}
+            conversations={conversations}
+            user={user}
+            postMessage={postMessage}
+          />
+        </React.StrictMode>
       </Grid>
     </>
   );

@@ -28,43 +28,47 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    <Grid container justifyContent="center">
-    <Box >
-      <Grid container  item>
-          <Typography >Dont have an account?</Typography>
-          <Link href="/register" to="/register">
-            <Button >Create Account</Button>
-          </Link>
-        </Grid>
-      <form onSubmit={handleLogin}>
-        <Grid>
-          <Grid>
-            <FormControl margin="normal"  required>
-              <TextField
-                aria-label="username"
-                label="Username"
-                name="username"
-                type="text"
-              />
-            </FormControl>
-          </Grid>
-          <Grid>
-          <FormControl margin="normal" required>
-            <TextField
-              label="Password"
-              aria-label="password"
-              type="password"
-              name="password"
-            />
-          </FormControl>
-          </Grid>
-          <Button type="submit" variant="contained" size="large">
-          Create
-        </Button>
-        </Grid>
-      </form>
-    </Box>
-  </Grid>
+          
+      <Grid container justifyContent="center">
+        <Box >
+          <Grid container  item>
+              <Typography >Dont have an account?</Typography>
+              <Link href="/register" to="/register">
+                <Button >Create Account</Button>
+              </Link>
+            </Grid>
+          <form onSubmit={handleLogin}>
+            <Grid>
+              <Grid>
+                <FormControl margin="normal"  required>
+                  <TextField
+                    aria-label="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid>
+              <FormControl margin="normal" required>
+                <TextField
+                  label="Password"
+                  aria-label="password"
+                  type="password"
+                  name="password"
+                />
+              </FormControl>
+              </Grid>
+              <Button type="submit" variant="contained" size="large">
+              Create
+            </Button>
+            </Grid>
+          </form>
+        </Box>
+      </Grid>
+     
+      
+
   );
 };
 

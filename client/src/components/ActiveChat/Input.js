@@ -38,9 +38,8 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   
     await postMessage(reqBody);
     setText('');
-   
   };
-  
+
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
       <FormControl fullWidth hiddenLabel>
