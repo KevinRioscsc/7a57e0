@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FormControl, FilledInput, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FileCopyTwoTone from '@material-ui/icons/FileCopyTwoTone';
+import CancelOutlined from '@material-ui/icons/CancelOutlined'
 
 const url = "https://api.cloudinary.com/v1_1/dsuycrxwy/image/upload";
 
@@ -27,7 +28,12 @@ const useStyles = makeStyles(() => ({
     cursor:'pointer'
   },
   selected: {
-    display: 'flex'
+    display: 'flex',
+    gap: 50
+  },
+  cancel:{
+    position: 'absolute',
+    cursor:'pointer'
   }
 }));
 
@@ -45,6 +51,10 @@ const Input = ({ otherUser, conversationId, user, postMessage}) => {
   const handleChange = (event) => {
     setText(event.target.value);
   };
+
+  const cancel = (i) => {
+    setFile(file.filter((item, index) =>  index !== i))
+  }
 
   const upload = (selectFile) => {
     var fd = new FormData();
@@ -86,13 +96,22 @@ const Input = ({ otherUser, conversationId, user, postMessage}) => {
        <Box className={classes.selected}>
             {
               file && 
-              file.map(img => {
-                return <img 
-                          key={img} 
+              file.map((img, index) => {
+                return (
+                      <Box  key={img}>
+                        <img 
+                         
                           height={70} 
                           src={img} 
                           alt="selectedImgs" 
+                          style={{position:'relative'}}
                         />
+                        <CancelOutlined 
+                         className={classes.cancel}
+                         onClick={() => cancel(index)}
+                         />
+                      </Box>
+                        )
               })
             }
         </Box>
