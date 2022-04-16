@@ -24,16 +24,34 @@ const useStyles = makeStyles(() => ({
   bubble: {
     background: '#F4F6FA',
     borderRadius: '10px 10px 0 10px',
+
   },
+  flex:{
+    display: 'flex',
+   
+  }
 }));
 
-const SenderBubble = ({ time, text }) => {
+const SenderBubble = ({ time, text, img }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
       <Box className={classes.bubble}>
+      <Box className={classes.flex}>
+        {img && 
+          img.map(photo => {
+            return (
+              <img key={photo} 
+                className={classes.bubble} 
+                src={photo} height={100} 
+                alt="attachments" 
+              />
+            )
+          })
+        }
+        </Box>
         <Typography className={classes.text}>{text}</Typography>
       </Box>
     </Box>
