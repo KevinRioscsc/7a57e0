@@ -82,14 +82,16 @@ const Home = ({ user, logout }) => {
 
   const addNewConvo = useCallback(
     (recipientId, message) => {
-      conversations.forEach((convo) => {
+      setConversations(conversations.map((convo) => {
         if (convo.otherUser.id === recipientId) {
-          convo.messages.push(message);
-          convo.latestMessageText = message.text;
-          convo.id = message.conversationId;
+          const convoCopy = {...convo}
+          convoCopy.messages.push(message);
+          convoCopy.latestMessageText = message.text;
+          convoCopy.id = message.conversationId;
+          return convoCopy
         }
-      });
-      setConversations(conversations);
+      }));
+    
     },
     [],
   );
@@ -109,15 +111,16 @@ const Home = ({ user, logout }) => {
         setConversations((prev) => [newConvo, ...prev]);
       }
 
-      //changed forEach to map because I want to manipulate data in
-      //the set method to cause a render.
+      
       setConversations(conversations.map((convo) => {
         if (convo.id === message.conversationId) {
-          convo.messages.push(message);
-          convo.latestMessageText = message.text;
+          const convoCopy = {...convo}
+          convoCopy.messages.push(message);
+          convoCopy.latestMessageText = message.text;
+
+          return convoCopy
          
         }
-        return convo;
       }));
     },
     [setConversations , conversations],
@@ -172,14 +175,7 @@ const Home = ({ user, logout }) => {
       socket.off("new-message", addMessageToConversation);
     };
   }, [addMessageToConversation, addOnlineUser, removeOfflineUser, socket]);
-  const reverseArr = (arr) => {
-    const newArr = []
-
-    for(let i = arr.length - 1; i >= 0; i--){
-      newArr.push(arr[i])
-    }
-    return newArr
-  }
+ 
 
   useEffect(() => {
     // when fetching, prevent redirect
@@ -199,8 +195,8 @@ const Home = ({ user, logout }) => {
       try {
         const { data } = await axios.get("/api/conversations");
 
-        setConversations(data.map(item => {
-          item.messages = reverseArr(item.messages)
+        setConversations(data.map((item) => { 
+          item.messages.reverse()
           return item
         }))
 
@@ -232,14 +228,14 @@ const Home = ({ user, logout }) => {
           addSearchedUsers={addSearchedUsers}
           setActiveChat={setActiveChat}
         />
-        <React.StrictMode>
+       
           <ActiveChat
             activeConversation={activeConversation}
             conversations={conversations}
             user={user}
             postMessage={postMessage}
           />
-        </React.StrictMode>
+       
       </Grid>
     </>
   );
