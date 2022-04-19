@@ -9,6 +9,7 @@ import {
   TextField,
 } from '@material-ui/core';
 
+
 const Login = ({ user, login }) => {
   const history = useHistory();
 
@@ -27,7 +28,6 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    
           
       <Grid container justifyContent="center">
         <Box >
@@ -68,6 +68,7 @@ const Login = ({ user, login }) => {
       </Grid>
      
       
+
   );
 };
 
