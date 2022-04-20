@@ -1,10 +1,10 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Typography, Avatar } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box, Typography, Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   avatar: {
     height: 30,
@@ -14,24 +14,24 @@ const useStyles = makeStyles(() => ({
   },
   usernameDate: {
     fontSize: 11,
-    color: '#BECCE2',
-    fontWeight: 'bold',
+    color: "#BECCE2",
+    fontWeight: "bold",
     marginBottom: 5,
   },
   bubble: {
-    backgroundImage: 'linear-gradient(225deg, #6CC1FF 0%, #3A8DFF 100%)',
-    borderRadius: '0 10px 10px 10px',
+    backgroundImage: "linear-gradient(225deg, #6CC1FF 0%, #3A8DFF 100%)",
+    borderRadius: "0 10px 10px 10px",
   },
   text: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
+    fontWeight: "bold",
+    color: "#FFFFFF",
     letterSpacing: -0.2,
     padding: 8,
   },
 }));
 
-const OtherUserBubble = ({ text, time, otherUser }) => {
+const OtherUserBubble = ({ text, time, otherUser, img }) => {
   const classes = useStyles();
 
   return (
@@ -45,8 +45,26 @@ const OtherUserBubble = ({ text, time, otherUser }) => {
         <Typography className={classes.usernameDate}>
           {otherUser.username} {time}
         </Typography>
+        <Box className={classes.flex}>
+          {img &&
+            img.length === 1 &&
+            img.map((photo) => {
+              return (
+                <img key={photo} src={photo} height={100} alt="attachments" />
+              );
+            })}
+        </Box>
         <Box className={classes.bubble}>
           <Typography className={classes.text}>{text}</Typography>
+        </Box>
+        <Box className={classes.flex}>
+          {img &&
+            img.length > 1 &&
+            img.map((photo) => {
+              return (
+                <img key={photo} src={photo} height={100} alt="attachments" />
+              );
+            })}
         </Box>
       </Box>
     </Box>
