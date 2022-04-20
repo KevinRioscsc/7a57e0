@@ -9,6 +9,7 @@ import {
   TextField,
 } from '@material-ui/core';
 
+
 const Login = ({ user, login }) => {
   const history = useHistory();
 
@@ -27,43 +28,47 @@ const Login = ({ user, login }) => {
   }, [user, history]);
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Link href="/register" to="/register">
-            <Button>Register</Button>
-          </Link>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
+          
+      <Grid container justifyContent="center">
+        <Box >
+          <Grid container  item>
+              <Typography >Dont have an account?</Typography>
+              <Link href="/register" to="/register">
+                <Button >Create Account</Button>
+              </Link>
+            </Grid>
+          <form onSubmit={handleLogin}>
             <Grid>
+              <Grid>
+                <FormControl margin="normal"  required>
+                  <TextField
+                    aria-label="username"
+                    label="Username"
+                    name="username"
+                    type="text"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid>
               <FormControl margin="normal" required>
                 <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
+                  label="Password"
+                  aria-label="password"
+                  type="password"
+                  name="password"
                 />
               </FormControl>
-            </Grid>
-            <FormControl margin="normal" required>
-              <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
-              />
-            </FormControl>
-            <Grid>
+              </Grid>
               <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
+              Create
+            </Button>
             </Grid>
-          </Grid>
-        </form>
-      </Box>
-    </Grid>
+          </form>
+        </Box>
+      </Grid>
+     
+      
+
   );
 };
 

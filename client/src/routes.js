@@ -116,6 +116,7 @@ const Routes = (props) => {
             )
           }
         />
+        
         <Route
           path="/home"
           render={() => <Home user={user} logout={logout} />}
