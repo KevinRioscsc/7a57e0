@@ -1,40 +1,63 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Typography } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
   },
   date: {
     fontSize: 11,
-    color: '#BECCE2',
-    fontWeight: 'bold',
+    color: "#BECCE2",
+    fontWeight: "bold",
     marginBottom: 5,
   },
   text: {
     fontSize: 14,
-    color: '#91A3C0',
+    color: "#91A3C0",
     letterSpacing: -0.2,
     padding: 8,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   bubble: {
-    background: '#F4F6FA',
-    borderRadius: '10px 10px 0 10px',
+    background: "#F4F6FA",
+    borderRadius: "10px 10px 0 10px",
+    marginBottom: 10,
+  },
+  flex: {
+    display: "flex",
+    gap: 10,
   },
 }));
 
-const SenderBubble = ({ time, text }) => {
+const SenderBubble = ({ time, text, img }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
+      <Box className={classes.flex}>
+        {img &&
+          img.length === 1 &&
+          img.map((photo) => {
+            return (
+              <img key={photo} src={photo} height={100} alt="attachments" />
+            );
+          })}
+      </Box>
       <Box className={classes.bubble}>
         <Typography className={classes.text}>{text}</Typography>
+      </Box>
+      <Box className={classes.flex}>
+        {img &&
+          img.length > 1 &&
+          img.map((photo) => {
+            return (
+              <img key={photo} src={photo} height={100} alt="attachments" />
+            );
+          })}
       </Box>
     </Box>
   );
